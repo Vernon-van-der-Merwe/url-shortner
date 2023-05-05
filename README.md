@@ -14,25 +14,43 @@ pnpm dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## The goal of this project
+The goal of this project is to create a web application that allows users to shorten URLs. 
+The shortened URLs will be persisted in some way and can be accessed later. 
+The application will be built using Node.js, TypeScript, and React.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+## Technical Requirements
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+1. Backend:
+    - The application should be built using Node.js.
+    - TypeScript should be used to write the code.
+    - You can use Express.js as the web framework or something similar.
+    - Any DB or persitance solution that you like.
+    - The API should allow users to shorten URLs by accepting a URL as input and returning a shortened URL.
+    - The API should also allow users to retrieve the original URL by providing the shortened URL.
+    - The API should handle errors gracefully and return appropriate error messages.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+2. Frontend:
+    - The application frontend should be built using React or React Native in combination with typescript.
+    - You are allowed to use UI framework of your choosing.
+    - The user interface should allow users to enter a URL to shorten and display the shortened URL that have been created in tha past.
+    - The user interface should also allow users to retrieve the original URL by providing the shortened URL.
+    - The user interface should handle errors gracefully and display appropriate error messages.
 
-## Learn More
+3. Deployment:
+    - Your solution can run locally and doesn’t have to be deployed anywhere. If you want to deploy it somewhere that will be great.
 
-To learn more about Next.js, take a look at the following resources:
+4. Deliverables:
+    - Source code of the application with appropriate comments.
+    - Documentation on how to build, deploy and run the application.
+    - Test cases to ensure the application is working as expected.
+    - A demo of the application showing how to shorten and retrieve URLs.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+5. Evaluation Criteria:
+    - Proper usage of Node.js, TypeScript and React.
+    - Proper usage of the web framework.
+    - Proper error handling.
+    - Proper usage of UI framework and responsive design. 5. Code quality and readability.
+    - Ability to deliver and communicate effectively.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Please share your result on a Github repo or something similar.
