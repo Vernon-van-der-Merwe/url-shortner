@@ -52,5 +52,3 @@ The application will be built using Node.js, TypeScript, and React.
     - Proper error handling.
     - Proper usage of UI framework and responsive design. 5. Code quality and readability.
     - Ability to deliver and communicate effectively.
-
-Please share your result on a Github repo or something similar.
