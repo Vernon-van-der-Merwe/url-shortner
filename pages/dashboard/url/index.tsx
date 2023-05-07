@@ -15,7 +15,7 @@ export function Landing() {
   return (
     <div>
     <Container>
-      <h1>Restaurants</h1>
+      <h1>Url's</h1>
       {loading ? (
         <Center h={"60vh"}>
           <Loader variant="dots" />

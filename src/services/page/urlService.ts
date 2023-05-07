@@ -23,7 +23,7 @@ export const create = async (input: CreateShortenedUrl, router: NextRouter, setL
 export const get = async (id, setLoading, setRestaurant) => {
     setLoading(true)
 
-    const response = await fetch("/api/store/get", {
+    const response = await fetch("/api/url/get", {
         method: "POST",
         body: JSON.stringify({ id }),
     })

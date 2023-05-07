@@ -6,7 +6,7 @@ export function Landing() {
     <>
       <Container>
       <Center pt={"80px"} pb={"10px"}>
-        <h1>Welcome to My url Shortner App</h1>
+        <h1>Welcome to My url Shortener App</h1>
       </Center>
         <Center pt={"80px"} pb={"10px"}>
           Create your first shortened Url!
