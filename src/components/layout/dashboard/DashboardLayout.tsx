@@ -58,7 +58,6 @@ export default function DashboardLayout(props: PageProps) {
         </Header>
       }
     >
-      <Text>Resize app to see responsive navbar in action</Text>
       {props.children}
     </AppShell>
   );

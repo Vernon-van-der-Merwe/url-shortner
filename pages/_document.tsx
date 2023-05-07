@@ -13,6 +13,7 @@ export default class _Document extends Document {
         <body>
           <Main />
           <NextScript />
+          <h1>hello</h1>
         </body>
       </Html>
     );

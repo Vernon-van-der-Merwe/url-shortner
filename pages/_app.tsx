@@ -2,6 +2,7 @@ import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { MantineProvider } from '@mantine/core';
 import DashboardLayout from '@/components/layout/dashboard/DashboardLayout';
+import { Notifications } from '@mantine/notifications';
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props;
@@ -19,6 +20,7 @@ export default function App(props: AppProps) {
           colorScheme: 'dark',
         }}
       >
+      <Notifications position="top-center" />
         <DashboardLayout>
           <Component {...pageProps} />
         </DashboardLayout>
