@@ -1,5 +1,5 @@
 import { CreateShortenedUrl, ShortenedUrl } from "@/model/ShortenedUrlModel";
-import { addDoc, collection, doc, DocumentData, Firestore, getDoc, getDocs, query, setDoc, updateDoc, where } from "firebase/firestore";
+import { addDoc, collection, doc, DocumentData, Firestore, getDoc, getDocs, query, updateDoc,deleteDoc } from "firebase/firestore";
 import { v4 as uuid } from "uuid";
 import { generateShortUrl } from "./helper";
 
@@ -24,6 +24,7 @@ export const create = async (fire: Firestore, data: CreateShortenedUrl): Promise
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
     }
+
     await addDoc(collection(fire, COLLECTION_NAME), input);
 };
 
@@ -41,6 +42,12 @@ export const getAll = async (fire: Firestore): Promise<ShortenedUrl[]> => {
 export const update = async (fire: Firestore, id: string, input: ShortenedUrl): Promise<ShortenedUrl> => {
     const ref = doc(fire, COLLECTION_NAME, id);
     await updateDoc(ref, { input });
-    const menu = await get(fire, id)
-    return menu as ShortenedUrl;
+    const data = await get(fire, id)
+    return data as ShortenedUrl;
+};
+
+export const removeItem = async (fire: Firestore, id: string): Promise<ShortenedUrl> => {
+    const ref = doc(fire, COLLECTION_NAME, id)
+    await deleteDoc(ref)
+    return
 };
