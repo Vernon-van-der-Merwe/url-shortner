@@ -7,6 +7,7 @@ import {
   IconLogout,
 } from '@tabler/icons-react';
 import { useRouter } from 'next/router';
+import { useAuth } from '@/context/AuthContext';
 
 const useStyles = createStyles((theme) => ({
   header: {
@@ -72,8 +73,15 @@ export function Navbar(props: { opened: boolean }) {
   const { opened } = props;
   const router = useRouter();
 
+  const { user, logout } = useAuth();
   const { classes, cx } = useStyles();
   const [active, setActive] = useState('Billing');
+
+  const handleLogout = (event) => {
+    event.preventDefault();
+    logout();
+    router.push('/auth/login');
+  };
 
   const links = data.map((item) => (
     <a
@@ -101,12 +109,7 @@ export function Navbar(props: { opened: boolean }) {
       </MantineNavbar.Section>
 
       <MantineNavbar.Section className={classes.footer}>
-        <a href="#" className={classes.link} onClick={(event) => event.preventDefault()}>
-          <IconSwitchHorizontal className={classes.linkIcon} stroke={1.5} />
-          <span>Change account</span>
-        </a>
-
-        <a href="#" className={classes.link} onClick={(event) => event.preventDefault()}>
+        <a href="#" className={classes.link} onClick={(event) => handleLogout(event)}>
           <IconLogout className={classes.linkIcon} stroke={1.5} />
           <span>Logout</span>
         </a>

@@ -11,6 +11,8 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import { Navbar } from "./Navbar";
+import { useAuth } from "@/context/AuthContext";
+import { useRouter } from "next/router";
 
 type PageProps = {
   children: React.ReactNode; // 👈️ type children
@@ -19,6 +21,14 @@ type PageProps = {
 export default function DashboardLayout(props: PageProps) {
   const theme = useMantineTheme();
   const [opened, setOpened] = useState(false);
+  const { user, logout } = useAuth();
+  const router = useRouter();
+
+
+  if (!user) {
+    router.push("/auth/login")
+  }
+
   return (
     <AppShell
       styles={{

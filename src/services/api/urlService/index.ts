@@ -1,7 +1,8 @@
 import { CreateShortenedUrl, ShortenedUrl } from "@/model/ShortenedUrlModel";
-import { addDoc, collection, doc, DocumentData, Firestore, getDoc, getDocs, query, updateDoc,deleteDoc } from "firebase/firestore";
+import { addDoc, collection, doc, DocumentData, Firestore, getDoc, getDocs, query, updateDoc,deleteDoc, setDoc } from "firebase/firestore";
 import { v4 as uuid } from "uuid";
 import { generateShortUrl } from "./helper";
+import { nanoid } from "nanoid";
 
 const COLLECTION_NAME = "shortenedUrl";
 
@@ -16,16 +17,18 @@ function asMapped(data: DocumentData) {
 }
 
 export const create = async (fire: Firestore, data: CreateShortenedUrl): Promise<void> => {
+    const id = nanoid()
+
     const input: ShortenedUrl = {
-        id: uuid(),
+        id,
         ...data,
-        shortUrl: generateShortUrl(),
+        shortUrl: generateShortUrl(id),
         clicks: 0,
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
     }
 
-    await addDoc(collection(fire, COLLECTION_NAME), input);
+    await setDoc(doc(fire, COLLECTION_NAME, id), input);
 };
 
 export const get = async (fire: Firestore, id: string): Promise<ShortenedUrl> => {
