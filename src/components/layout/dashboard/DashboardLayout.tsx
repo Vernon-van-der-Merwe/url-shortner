@@ -25,9 +25,9 @@ export default function DashboardLayout(props: PageProps) {
   const router = useRouter();
 
 
-  if (!user) {
-    router.push("/auth/login")
-  }
+  // if (!user) {
+  //   router.push("/auth/login")
+  // }
 
   return (
     <AppShell

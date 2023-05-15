@@ -87,7 +87,7 @@ const Login = (props: PaperProps) => {
         />
 
         <form
-          onSubmit={handleSubmit}
+          onSubmit={(e) => handleSubmit(e)}
         >
           <Stack>
             {type === "register" && (
