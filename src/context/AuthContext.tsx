@@ -20,22 +20,30 @@ export const AuthContextProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
+  const router = useRouter();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (fireUser) => {
-      if (fireUser) {
-        const res = await fetch("/api/auth/login", {
-          method: "POST",
-          body: JSON.stringify({ email: fireUser.email, id: fireUser.uid }),
-        });
-        const data = (await res.json()) as User;
-
-        setUser(asActiveUserAcc(fireUser, data));
-      } else {
+      try {
+        if (fireUser) {
+          const res = await fetch("/api/auth/login", {
+            method: "POST",
+            body: JSON.stringify({ email: fireUser.email, id: fireUser.uid }),
+          });
+          const data = (await res.json()) as User;
+  
+          setUser(asActiveUserAcc(fireUser, data));
+        } else {
+          setUser(null);
+        }
+      } catch (error) {
+        console.log(error);
         setUser(null);
+        router.push("/auth/login");
       }
+
       setLoading(false);
     });
 
