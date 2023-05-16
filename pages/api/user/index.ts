@@ -3,7 +3,7 @@ import * as UserService from "@/services/api/userService";
 
 export default async function index(req, res) {
   const { id } = JSON.parse(req.body)
-  console.log(id);
+
   try {
     let user = await UserService.get(fire, id)
 

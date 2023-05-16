@@ -39,7 +39,6 @@ export function UrlTable(props) {
 
   const rows = urlList.map((item: ShortenedUrl) => {
     return (
-      <>
         <tr key={item.id}>
           <td onClick={() => handleRowClick(item.id, router)}>
             <Group spacing="sm">
@@ -87,7 +86,6 @@ export function UrlTable(props) {
             </Menu>
           </td>
         </tr>
-      </>
     );
   });
 
