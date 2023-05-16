@@ -3,6 +3,9 @@ import { CreateShortenedUrl, ShortenedUrl } from "@/model/ShortenedUrlModel";
 import { NextRouter } from "next/router";
 import { showError, showSuccess } from "./notificationService";
 
+import * as ApiUrlService from "@/services/api/urlService";
+import { fire } from "@/config/firebase";
+
 export const create = async (input: CreateShortenedUrl, router: NextRouter ,setLoading) => {
     setLoading(true)
 
@@ -22,18 +25,22 @@ export const create = async (input: CreateShortenedUrl, router: NextRouter ,setL
 
 export const get = async (id, setLoading, setResults) => {
     setLoading(true)
+    
+    // TEMPORARILY REPLACE FETCH WITH DIRECT SERVICE CALL
+    let result = await ApiUrlService.get(fire, id)
+    setResults(result)
 
-    const response = await fetch("/api/url/get", {
-        method: "POST",
-        body: JSON.stringify({ id }),
-    })
+    // const response = await fetch("/api/url/get", {
+    //     method: "POST",
+    //     body: JSON.stringify({ id }),
+    // })
 
-    if (response.status == 200) {
-        const result = await response.json() as ShortenedUrl
-        setResults(result)
-    } else {
-        showError("Oops!", "Something went wrong 👀");
-    }
+    // if (response.status == 200) {
+    //     const result = await response.json() as ShortenedUrl
+    //     setResults(result)
+    // } else {
+    //     showError("Oops!", "Something went wrong 👀");
+    // }
 
     setLoading(false)
 };

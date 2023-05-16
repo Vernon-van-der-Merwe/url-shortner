@@ -27,5 +27,4 @@ export const getUserRaw = async (id): Promise<DbUser | void> => {
         console.log(error);
         showError("Something went wrong 👀", "Please try again later");
     }
-
 };

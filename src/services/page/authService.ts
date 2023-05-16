@@ -6,15 +6,18 @@ import {
 } from "./notificationService";
 import { DbUser } from "@/model/User";
 
-import { User, UserCredential, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { User, UserCredential, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { NextRouter } from "next/router";
 import * as userService from "@/services/page/userService";
+import * as ApiUserService from "@/services/api/userService";
+
+import { auth, fire } from '@/config/firebase'
 
 export const authStateChangedHandler = async (auth, fireUser: User, setUser, logout, setLoading, router): Promise<void> => {
   setLoading(true);
 
   try {
-    const dbUser = await userService.getUserRaw(fireUser.uid) as DbUser;
+    const dbUser = await ApiUserService.get(fire, fireUser.uid) as DbUser;
 
     if (!dbUser || !fireUser) {
       logout(auth, setUser, router);
@@ -44,21 +47,31 @@ export const login = async (auth, email, password, setUser, setLoading, router: 
 export const register = async (name, email, password, router, setLoading) => {
   setLoading(true)
 
-  const res = await fetch("/api/auth/register", {
-    method: "POST",
-    body: JSON.stringify({ name, email, password })
-  })
+  try {
+      // TEMPORARILY REPLACE FETCH WITH DIRECT SERVICE CALL
+      const fireAcc = await createUserWithEmailAndPassword(auth, email, password)
+      const user = ApiUserService.create(fire, { id: fireAcc.user.uid, name, email: email, role: "user"})
 
-  if (res.status !== 200) {
-    handleError(res)
-    setLoading(false)
-    return
+      showSuccess("Profile created!", "Whoopty do!");
+      showInfo("Please log in!", "Lets get started");
+    
+      router.push("/dashboard");
+  } catch (error) {
+    handleFirebaseError(error)
   }
 
-  showSuccess("Profile created!", "Whoopty do!");
-  showInfo("Please log in!", "Lets get started");
 
-  router.push("/dashboard");
+  // const res = await fetch("/api/auth/register", {
+  //   method: "POST",
+  //   body: JSON.stringify({ name, email, password })
+  // })
+
+  // if (res.status !== 200) {
+  //   handleError(res)
+  //   setLoading(false)
+  //   return
+  // }
+  setLoading(false)
 };
 
 // TODO: We need a global err handler https://reactjs.org/docs/error-boundaries.html
