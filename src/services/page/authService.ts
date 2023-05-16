@@ -4,19 +4,41 @@ import {
   showSuccess,
   showInfo,
 } from "./notificationService";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { NextRouter } from "next/router";
+import { DbUser } from "@/model/User";
 
-export const login = async (auth, email, password, router: NextRouter) => {
+import { User, UserCredential, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { NextRouter } from "next/router";
+import * as userService from "@/services/page/userService";
+
+export const authStateChangedHandler = async (auth, fireUser: User, setUser, logout, setLoading, router): Promise<void> => {
+  setLoading(true);
+
   try {
-    let response = await signInWithEmailAndPassword(auth, email, password)
-    setTimeout(() => {
-      router.push('/dashboard')
-    }, 1000);
-    return response
+    const dbUser = await userService.getUserRaw(fireUser.uid) as DbUser;
+
+    if (!dbUser || !fireUser) {
+      logout(auth, setUser, router);
+    }
+    console.log({ ...fireUser, ...dbUser });
+    setUser({ ...fireUser, ...dbUser })
+  } catch (error) {
+    logout(auth, setUser, router);
+  }
+
+  setLoading(false);
+};
+
+export const login = async (auth, email, password, setUser, setLoading, router: NextRouter) => {
+  setLoading(true)
+
+  try {
+    await signInWithEmailAndPassword(auth, email, password) as UserCredential;
+    router.push("/dashboard");
   } catch (error) {
     handleFirebaseError(error)
   }
+
+  setLoading(false)
 };
 
 export const register = async (name, email, password, router, setLoading) => {
@@ -49,5 +71,5 @@ function handleError(error) {
 }
 
 function handleFirebaseError(res: Response) {
-    showError("Oops!", "Something went wrong 👀");
+  showError("Oops!", "Something went wrong 👀");
 }

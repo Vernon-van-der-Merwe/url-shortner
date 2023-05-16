@@ -35,38 +35,29 @@ const styles = createStyles((theme, _params, getRef) => ({
 const Login = (props: PaperProps) => {
   const router = useRouter();
   const { user, setUser } = useAuth();
-  
-  if (user) {
-    router.push("/dashboard");
-  }
 
   const [type, toggle] = useToggle(["login", "register"]);
   const [loading, setLoading] = useState(false);
   const form = useForm(config.login);
   const { classes } = styles();
 
-
-
   const handleLogin = async () => {
-    setLoading(true)
-    const { email, password } = form.values
-    await AuthService.login(auth, email, password, router);
-    setLoading(false)
-  }
-
-  const handleRegister = async () => {
-    const { name, email, password } = form.values
-    await AuthService.register(name, email, password, router, setLoading);
-  }
-
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    form.validate()
-    if (form.isValid()) {
-      type == "login" ? handleLogin() : handleRegister()
-    }
+    const { email, password } = form.values;
+    await AuthService.login(auth, email, password, setUser, setLoading, router);
   };
 
+  const handleRegister = async () => {
+    const { name, email, password } = form.values;
+    await AuthService.register(name, email, password, router, setLoading);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    form.validate();
+    if (form.isValid()) {
+      type == "login" ? handleLogin() : handleRegister();
+    }
+  };
   return (
     <Center className={classes.center}>
       <Paper
@@ -86,9 +77,7 @@ const Login = (props: PaperProps) => {
           my="lg"
         />
 
-        <form
-          onSubmit={(e) => handleSubmit(e)}
-        >
+        <form onSubmit={(e) => handleSubmit(e)}>
           <Stack>
             {type === "register" && (
               <TextInput
