@@ -11,15 +11,21 @@ export const get = async (id, setLoading, setResult) => {
 };
 
 export const getUserRaw = async (id): Promise<DbUser | void> => {
-    const response = await fetch("/api/user", {
-        method: "POST",
-        body: JSON.stringify({ id }),
-    })
+    try {
+        const response = await fetch("/api/user", {
+            method: "POST",
+            body: JSON.stringify({ id }),
+        })
 
-    if (response.status == 200) {
-        const result = await response.json() as DbUser
-        return result
-    } else {
-        throw new Error("Something went wrong 👀");
+        if (response.status == 200) {
+            const result = await response.json() as DbUser
+            return result
+        } else {
+            throw new Error("Something went wrong 👀");
+        }
+    } catch (error) {
+        console.log(error);
+        showError("Something went wrong 👀", "Please try again later");
     }
+
 };
