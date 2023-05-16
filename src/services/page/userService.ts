@@ -1,10 +1,13 @@
 import { DbUser } from "@/model/User";
 import { showError } from "./notificationService";
+import * as ApiUserService from "@/services/api/userService";
+import { fire } from "@/config/firebase";
 
 export const get = async (id, setLoading, setResult) => {
     setLoading(true)
 
-    const user = getUserRaw(id);
+    let user = ApiUserService.get(fire, id)
+    // const user = getUserRaw(id);
     setResult(user)
 
     setLoading(false)
