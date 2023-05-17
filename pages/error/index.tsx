@@ -67,7 +67,7 @@ export default function NotFoundTitle() {
   return (
     <Container className={classes.root}>
       <div className={classes.label}>500</div>
-      <Title className={classes.title}>You have found a secret place.</Title>
+      <Title className={classes.title}>Whoops, Something went wrong.</Title>
       <Text
         color="dimmed"
         size="lg"
