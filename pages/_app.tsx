@@ -12,7 +12,7 @@ export default function App(props: AppProps) {
   const router = useRouter();
 
   const { Component, pageProps } = props;
-
+  
   return (
     <>
       <Head>

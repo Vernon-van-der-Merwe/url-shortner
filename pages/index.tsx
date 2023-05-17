@@ -9,7 +9,6 @@ const inter = Inter({ subsets: ['latin'] })
 export default function Home() {
   const router = useRouter()
 
-  router.push('/dashboard')
   return (
     <>
       <Head>
