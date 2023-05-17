@@ -18,3 +18,5 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 The goal of this project is to create a web application that allows users to shorten URLs. 
 The shortened URLs will be persisted in some way and can be accessed later. 
 The application will be built using Node.js, TypeScript, and React.
+
+Link to [Article Here](https://next-portfolio-plum-six.vercel.app/posts/b-urlShortnerDailyLog)
