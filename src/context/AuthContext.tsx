@@ -21,6 +21,14 @@ export const AuthContextProvider = ({
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (fireUser: User) => {
+      
+      if (
+        router.pathname == "/auth/login" ||
+        router.pathname == "/error"
+      ) {
+        setLoading(false);
+        return;
+      }
 
       await authService.authStateChangedHandler(
         auth,
